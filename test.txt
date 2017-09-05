@@ -14,7 +14,7 @@
 				categoryId[size] = category.getId();
 				List<ProductDetail> prodList = productService.getProdByCategoryIds(categoryId);
 				prodVos = this.convertToVo(prodList);
-				sys
+				sysout
 			}
 		} catch (Exception e) {
 			return new ResultModelVo<List<ProductListVo>>(RetCode.FAIL_CODE, e.getMessage(), prodVos);
