@@ -10,6 +10,7 @@
 					for (int i = 0; i < size; i++) {
 						categoryId[i] = category.getChildrenList().get(i).getId();
 					}
+					sysout
 				}
 				categoryId[size] = category.getId();
 				List<ProductDetail> prodList = productService.getProdByCategoryIds(categoryId);
