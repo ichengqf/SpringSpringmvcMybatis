@@ -1,4 +1,22 @@
-fffff
-11111
-www
-2222
+	@RequestMapping(value = "/equityList", method=RequestMethod.GET)
+	public ResultModelVo<List<ProductListVo>> EquityGoodsList(HttpServletRequest request, HttpServletResponse response){
+		List<ProductListVo> prodVos = null;
+		try {
+			Category category = categoryService.findCategory(CategoryLabelEnum.RIGHTS.value());
+			if(category != null){
+				int size = category.getChildrenList().size();
+				Long[] categoryId = new Long[size+1];
+				if(category.getChildrenList() != null && size > 0){
+					for (int i = 0; i < size; i++) {
+						categoryId[i] = category.getChildrenList().get(i).getId();
+					}
+				}
+				categoryId[size] = category.getId();
+				List<ProductDetail> prodList = productService.getProdByCategoryIds(categoryId);
+				prodVos = this.convertToVo(prodList);
+			}
+		} catch (Exception e) {
+			return new ResultModelVo<List<ProductListVo>>(RetCode.FAIL_CODE, e.getMessage(), prodVos);
+		}
+		return new ResultModelVo<List<ProductListVo>>(prodVos);
+	}
